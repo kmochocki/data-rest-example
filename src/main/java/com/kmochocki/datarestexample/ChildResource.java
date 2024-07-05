@@ -1,17 +1,28 @@
 package com.kmochocki.datarestexample;
 
-import jakarta.persistence.Entity;
-import lombok.*;
-import lombok.experimental.Accessors;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Accessors(chain = true)
-@ToString(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-class ChildResource extends BaseResource {
+@NoArgsConstructor
+class ChildResource {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false)
+    @EqualsAndHashCode.Include
+    private UUID id;
 
     private String name;
+
+    public ChildResource(String name) {
+        this.name = name;
+    }
 }
